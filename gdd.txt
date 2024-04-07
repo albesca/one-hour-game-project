@@ -1,0 +1,11 @@
+A game where different objects appear on screen and the player must click on the right ones and avoid the wrong ones.
+The objects stay on screen for a fixed time, then disappear.
+Each time a correct object disappear the player lose a life.
+Each time the player clicks on a wrong object the player lose a life.
+The player starts with three lives.
+The first ten objects appear every five seconds and last for ten seconds.
+After that the spawn rate decrease by a second and the lifespan decrease by two seconds every ten objects.
+When the spawn rate goes to zero (fifty objects) the player wins.
+The correct (target) object is shown at the bottom of the screen.
+After each new object spawns there's a chance (1/5) that the target object changes.
+Each correct guess (click or ignore) gives a point.
