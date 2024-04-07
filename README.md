@@ -1,2 +1,2 @@
-# one-hour-game-project
-One hour game project
+A simple game planned to be made in one hour from concept to final product.
+It took ten minutes to design, then forty minutes to code and twenty minutes to playtest and debug to a playable state, for a total of one hour and ten minutes.
