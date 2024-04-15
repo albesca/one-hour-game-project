@@ -11,7 +11,7 @@ var object_types = {
 }
 
 var max_spawn_rate = 5
-var max_lifespan = 10
+var max_lifespan = 9.5
 
 var object_counter
 var lifespan
@@ -40,13 +40,13 @@ func _process(_delta):
 			game_going = false
 			$SpawnTimer.stop()
 			$GameEndMessage.visible = true
-			$GameEndMessage.text = "You lost"
+			$GameEndMessage.text = "You lost - final score: %d" % score
 			$Restart.visible = true
 		elif spawn_rate == 0:
 			game_going = false
 			$SpawnTimer.stop()
 			$GameEndMessage.visible = true
-			$GameEndMessage.text = "You win"
+			$GameEndMessage.text = "You win - final score: %d" % score
 			$Restart.visible = true
 		
 		if object_counter == 10:
