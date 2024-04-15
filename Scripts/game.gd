@@ -103,15 +103,25 @@ func _on_spawn_timer_timeout():
 		$TargetTexture.texture = load(object_types[target])
 
 
-func despawn_object(type):
+func despawn_object(type, object):
+	var happy
 	if type == target:
 		lives -= 1
+		happy = false
 	else:
 		score += 1
+		happy = true
+	
+	object.play_smiley(happy)
 
 
-func click_object(type):
+func click_object(type, object):
+	var happy
 	if type == target:
 		score += 1
+		happy = true
 	else:
 		lives -= 1
+		happy = false
+	
+	object.play_smiley(happy)

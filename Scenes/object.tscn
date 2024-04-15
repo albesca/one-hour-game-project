@@ -1,10 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccoyiufegglom"]
+[gd_scene load_steps=10 format=3 uid="uid://ccoyiufegglom"]
 
 [ext_resource type="Script" path="res://Scripts/object.gd" id="1_b3h5v"]
-[ext_resource type="Texture2D" uid="uid://bf6jbcgglpbk" path="res://Images/purple_eggplant.png" id="2_3occq"]
+[ext_resource type="Texture2D" uid="uid://gvm8d53vad0y" path="res://Images/yellow_lemon.png" id="2_r8qwh"]
+[ext_resource type="Texture2D" uid="uid://dcmr60t64vs8w" path="res://Images/face_00.png" id="3_6is5w"]
+[ext_resource type="Texture2D" uid="uid://blg28yjcwe7ul" path="res://Images/face_happy_01.png" id="4_ttbok"]
+[ext_resource type="Texture2D" uid="uid://bmj8bvrfhefr0" path="res://Images/face_happy_02.png" id="5_1151n"]
+[ext_resource type="Texture2D" uid="uid://cqautjaehihb" path="res://Images/face_sad_01.png" id="6_tggp7"]
+[ext_resource type="Texture2D" uid="uid://bf8evwtvqgts5" path="res://Images/face_sad_02.png" id="7_ttov8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t36pp"]
 radius = 48.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n3wei"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6is5w")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6is5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ttbok")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1151n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1151n")
+}],
+"loop": false,
+"name": &"happy",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6is5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tggp7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ttov8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ttov8")
+}],
+"loop": false,
+"name": &"sad",
+"speed": 4.0
+}]
 
 [node name="Object" type="Area2D"]
 monitorable = false
@@ -24,7 +74,7 @@ offset_left = -64.0
 offset_top = -48.0
 offset_right = 64.0
 offset_bottom = 48.0
-texture = ExtResource("2_3occq")
+texture = ExtResource("2_r8qwh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_t36pp")
@@ -34,5 +84,11 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-6, 0)
+sprite_frames = SubResource("SpriteFrames_n3wei")
+animation = &"happy"
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_smiley_animation_finished"]
