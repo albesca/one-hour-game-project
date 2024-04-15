@@ -5,9 +5,9 @@ extends Node2D
 @export var max_lives = 3
 
 var object_types = {
-	"red": Color.RED,
-	"blue": Color.BLUE,
-	"green": Color.GREEN
+	"red": "res://Images/red_apple.png",
+	"blue": "res://Images/purple_eggplant.png",
+	"green": "res://Images/yellow_lemon.png"
 }
 
 var max_spawn_rate = 5
@@ -53,7 +53,8 @@ func _process(_delta):
 			object_counter = 0
 			spawn_rate -= 1
 			lifespan -= 2
-			$SpawnTimer.wait_time = spawn_rate
+			if spawn_rate > 0:
+				$SpawnTimer.wait_time = spawn_rate
 	else:
 		$Lives.text = "lives: -"
 		$Score.text = "score: -"
@@ -81,13 +82,16 @@ func reset():
 	$SpawnTimer.start()
 	$GameEndMessage.visible = false
 	target = object_types.keys()[rng.randi_range(0, len(object_types.keys()) - 1)]
-	$TargetColor.color = object_types[target]
+	#$TargetColor.color = object_types[target]
+	$TargetTexture.texture = load(object_types[target])
 
 
 func _on_spawn_timer_timeout():
 	var object = object_scene.instantiate()
 	object.position = Vector2(rng.randi_range(30, 450), rng.randi_range(80, 450))
-	object.object_type = object_types.keys()[rng.randi_range(0, len(object_types.keys()) - 1)]
+	var object_key = object_types.keys()[rng.randi_range(0, len(object_types.keys()) - 1)]
+	object.object_type = object_key
+	object.object_texture = object_types[object_key]
 	object.lifespan = lifespan
 	add_child(object)
 	object_counter += 1
@@ -95,7 +99,8 @@ func _on_spawn_timer_timeout():
 	object.connect("despawn", despawn_object)
 	if rng.randi_range(1, 5) == 1:
 		target = object_types.keys()[rng.randi_range(0, len(object_types.keys()) - 1)]
-		$TargetColor.color = object_types[target]
+		#$TargetColor.color = object_types[target]
+		$TargetTexture.texture = load(object_types[target])
 
 
 func despawn_object(type):

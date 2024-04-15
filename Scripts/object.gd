@@ -5,13 +5,15 @@ signal clicked(type)
 signal despawn(type)
 
 var object_type = Color.WHITE
+var object_texture = ""
 var lifespan = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$LifeTimer.wait_time = lifespan
 	$LifeTimer.start()
-	$ColorRect.color = object_type
+	#$ColorRect.color = object_type
+	$TextureRect.texture = load(object_texture)
 
 
 func _on_input_event(_viewport, event, _shape_idx):

@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccoyiufegglom"]
+[gd_scene load_steps=4 format=3 uid="uid://ccoyiufegglom"]
 
 [ext_resource type="Script" path="res://Scripts/object.gd" id="1_b3h5v"]
+[ext_resource type="Texture2D" uid="uid://bf6jbcgglpbk" path="res://Images/purple_eggplant.png" id="2_3occq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t36pp"]
-radius = 32.0
+radius = 48.0
 
 [node name="Object" type="Area2D"]
 monitorable = false
 script = ExtResource("1_b3h5v")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0
@@ -17,12 +19,12 @@ offset_bottom = 32.0
 mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 custom_minimum_size = Vector2(64, 64)
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_left = -64.0
+offset_top = -48.0
+offset_right = 64.0
+offset_bottom = 48.0
+texture = ExtResource("2_3occq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_t36pp")
