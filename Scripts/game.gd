@@ -10,6 +10,30 @@ var object_types = {
 	"green": "res://Images/yellow_lemon.png"
 }
 
+var normal_sounds_ok = [
+	"res://Sounds/ok_n_01.wav",
+	"res://Sounds/ok_n_02.wav",
+	"res://Sounds/ok_n_03.wav",
+	"res://Sounds/ok_n_04.wav"
+]
+
+var normal_sounds_ko = [
+	"res://Sounds/ko_n_01.wav",
+	"res://Sounds/ko_n_02.wav",
+	"res://Sounds/ko_n_03.wav",
+	"res://Sounds/ko_n_04.wav"
+]
+
+var special_sounds_ok = [
+	"res://Sounds/ok_s_01.wav",
+	"res://Sounds/ok_s_02.wav"
+]
+
+var special_sounds_ko = [
+	"res://Sounds/ko_s_01.wav",
+	"res://Sounds/ko_s_02.wav"
+]
+
 var max_spawn_rate = 5
 var max_lifespan = 9.5
 
@@ -27,6 +51,7 @@ var rng
 
 
 func _ready():
+	$MusicPlayer.play()
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 
@@ -97,6 +122,18 @@ func _on_spawn_timer_timeout():
 	object_counter += 1
 	object.connect("clicked", click_object)
 	object.connect("despawn", despawn_object)
+	var audio_ok
+	var audio_ko
+	if rng.randi_range(1, 10) == 1:
+		audio_ok = load(special_sounds_ok[rng.randi_range(0, len(special_sounds_ok) - 1)])
+		audio_ko = load(special_sounds_ko[rng.randi_range(0, len(special_sounds_ko) - 1)])
+	else:
+		audio_ok = load(normal_sounds_ok[rng.randi_range(0, len(normal_sounds_ok) - 1)])
+		audio_ko = load(normal_sounds_ko[rng.randi_range(0, len(normal_sounds_ko) - 1)])
+	
+	object.sounds.append(audio_ok)
+	object.sounds.append(audio_ko)
+
 	if rng.randi_range(1, 5) == 1:
 		target = object_types.keys()[rng.randi_range(0, len(object_types.keys()) - 1)]
 		#$TargetColor.color = object_types[target]
@@ -125,3 +162,7 @@ func click_object(type, object):
 		happy = false
 	
 	object.play_smiley(happy)
+
+
+func _on_sound_button_toggled(button_pressed):
+	AudioServer.set_bus_mute(0, button_pressed)

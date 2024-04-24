@@ -89,6 +89,10 @@ position = Vector2(-6, 0)
 sprite_frames = SubResource("SpriteFrames_n3wei")
 animation = &"happy"
 
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Sound"
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_smiley_animation_finished"]
+[connection signal="finished" from="SoundPlayer" to="." method="_on_sound_player_finished"]

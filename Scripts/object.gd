@@ -8,6 +8,17 @@ var object_type = Color.WHITE
 var object_texture = ""
 var lifespan = 5
 
+var sounds = []
+
+var animation_done = false
+var sound_done = false
+
+
+func _process(_delta):
+	if animation_done and sound_done:
+		queue_free()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$LifeTimer.wait_time = lifespan
@@ -33,11 +44,21 @@ func _on_life_timer_timeout():
 
 
 func _on_smiley_animation_finished():
-	queue_free()
+	animation_done = true
 
 
 func play_smiley(happy):
+	var animation
 	if happy:
-		$AnimatedSprite2D.play("happy")
+		animation = "happy"
+		$SoundPlayer.stream = sounds[0]
 	else:
-		$AnimatedSprite2D.play("sad")
+		animation = "sad"
+		$SoundPlayer.stream = sounds[1]
+
+	$AnimatedSprite2D.play(animation)
+	$SoundPlayer.play()
+
+
+func _on_sound_player_finished():
+	sound_done = true
